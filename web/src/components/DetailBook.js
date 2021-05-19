@@ -60,7 +60,10 @@ export default function DetailBook(props) {
   async function handleEdit(e) {
     e.preventDefault();
 
-    history.push(`/book/${props.match.params.id}/edit`)
+    history.push({
+      pathname: `/book/${props.match.params.id}/edit`,
+      state: { book }
+    })
   }
 
   return (
