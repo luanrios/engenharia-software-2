@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { useHistory } from "react-router-dom";
 import firebase from "../firebase";
 
 export default function CreateBook() {
@@ -12,7 +11,6 @@ export default function CreateBook() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const database = firebase.firestore();
   
