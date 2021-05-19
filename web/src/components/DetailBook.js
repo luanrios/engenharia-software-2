@@ -1,35 +1,35 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Card, Alert } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../firebase";
 
 export default function DetailBook(props) {
-  const titleRef = useRef();
-  const authorRef = useRef();
-  const barcodeRef = useRef();
-  
   const { currentUser } = useAuth();
   
   const [book, setBook] = useState(undefined);
   const [error, setError] = useState("");
 
-  const database = firebase.firestore();
-  const booksCollection = database.collection("books")
-  
+  const history = useHistory();
+
   useEffect(() => {
-    getBook(props.match.params.id);
-  }, []);
-
-  async function getBook(id) {
-    const doc = await booksCollection.doc(id).get();
-    
-    if (!doc.exists) {
-      setError('Book not found');
-      return;
+    async function getBook(id) {
+      const database = firebase.firestore();
+      const booksCollection = database.collection("books");
+      
+      const doc = await booksCollection.doc(id).get();
+      
+      if (!doc.exists) {
+        setError('Book not found');
+        return;
+      }
+  
+      setBook(doc.data());
     }
+    
+    getBook(props.match.params.id);
+  }, [props]);
 
-    setBook(doc.data());
-  }
 
   function displayBook() {
     return (
@@ -45,11 +45,10 @@ export default function DetailBook(props) {
         </Card.Body>
         
         <Card.Body>
-          <Button disabled={currentUser.email != book.owner} className="w-100" onClick={handleEdit}>
+          <Button disabled={currentUser.email !== book.owner} className="w-100" onClick={handleEdit}>
             Edit
           </Button>
         </Card.Body>
-        
       </>
     );
   }
@@ -60,6 +59,8 @@ export default function DetailBook(props) {
 
   async function handleEdit(e) {
     e.preventDefault();
+
+    history.push(`/book/${props.match.params.id}/edit`)
   }
 
   return (
