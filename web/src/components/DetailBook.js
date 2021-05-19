@@ -29,7 +29,7 @@ export default function DetailBook(props) {
     
     getBook(props.match.params.id);
   }, [props]);
-
+  
 
   function displayBook() {
     return (
@@ -49,23 +49,59 @@ export default function DetailBook(props) {
             Edit
           </Button>
         </Card.Body>
+
+        <Card.Body>
+          <Button disabled={currentUser.email !== book.owner} className="w-100" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Card.Body>
       </>
     );
   }
-
+  
   async function handleBorrow(e) {
     e.preventDefault();
   }
-
+  
   async function handleEdit(e) {
     e.preventDefault();
-
+    
     history.push({
       pathname: `/book/${props.match.params.id}/edit`,
       state: { book }
     })
   }
+  
+  async function handleDelete(e) {
+    e.preventDefault();
+    
+    if (!book) {
+      return;
+    }
+    
+    if (book.owner !== currentUser.email) {
+      setError("User doesn't own book");
+      setInterval(() => {
+        setError("");
+      }, 3000)
+      return;
+    }
+    
+    try {
+      const database = firebase.firestore();
+      const booksCollection = database.collection("books");
+      
+      await booksCollection.doc(props.match.params.id).delete();
 
+      history.push('/');
+    } catch (e) {
+      setError("Error deleting book");
+      setInterval(() => {
+        setError("");
+      }, 3000)
+    }
+  }
+  
   return (
     <>
       <Card>

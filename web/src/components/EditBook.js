@@ -17,9 +17,6 @@ export default function CreateBook(props) {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const database = firebase.firestore();
-  const booksCollection = database.collection("books")
-  
   const history = useHistory();
   
   useEffect(() => {
@@ -59,12 +56,15 @@ export default function CreateBook(props) {
     } else {
       fillFields(bookData);
     }
-  }, [props, booksCollection])
+  }, [props])
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
+      const database = firebase.firestore();
+      const booksCollection = database.collection("books")
+  
       setError("");
       setLoading(true);
 
@@ -72,11 +72,11 @@ export default function CreateBook(props) {
         throw new Error('User does not own book');
       }
 
-      booksCollection.doc(props.match.params.id).set({
+      await booksCollection.doc(props.match.params.id).update({
         title: titleRef.current.value,
         author: authorRef.current.value,
         barcode: barcodeRef.current.value
-      }, { merge: true });
+      });
 
       setSuccess("Successfully updated!");
       setInterval(() => {
