@@ -3,6 +3,11 @@ import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
+/*
+    Componente Dashboard é a view principal do usuário autenticado
+    Mantém o método de logout com o contexto de autenticação
+*/
+
 export default function Dashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();

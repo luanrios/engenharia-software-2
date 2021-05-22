@@ -12,6 +12,11 @@ import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
 
+/*
+    Componente App que roteia a aplicação utilizando lib react-router-dom
+    PrivateRoute para views de privadas e Route para views públicas
+*/
+
 function App() {
   return (
     <Container

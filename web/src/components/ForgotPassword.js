@@ -3,6 +3,11 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
+/*
+    Componente para método de recuperação de senha
+    Utiliza contexto de autenticação
+*/
+
 export default function ForgotPassword() {
   const emailRef = useRef();
   const { resetPassword } = useAuth();
