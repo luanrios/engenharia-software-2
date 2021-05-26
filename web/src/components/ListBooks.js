@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 import firebase from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -28,14 +29,30 @@ export default function ListBooks() {
             <Link to="/book/create" className="btn btn-primary w-100 mt-3">
                 Create New Book
             </Link>
-            {books.map(book => (
-                <li key={book.title}>
-                    {book.title}
-                    <Link to={"/book/"+book.id+"/edit"} className="btn btn-primary">
-                        Update
-                    </Link>
-                </li>
-            ))}
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {books.map(book => (
+                        <tr key={book.title}>
+                            <td>{book.title}</td>
+                            <td>
+                            {
+                                book.isOwner && (
+                                <Link to={"/book/"+book.id+"/edit"} className="btn btn-primary">
+                                    Update
+                                </Link>
+                                )
+                            }
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
         </ul>
         </>
     );

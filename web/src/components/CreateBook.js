@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../firebase";
+import { useHistory } from "react-router-dom";
 
 export default function CreateBook() {
   const titleRef = useRef();
@@ -11,6 +12,7 @@ export default function CreateBook() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const database = firebase.firestore();
   
@@ -45,7 +47,7 @@ export default function CreateBook() {
         setSuccess("");
       }, 3000)
       
-      // history.push("/");
+      history.push("/");
     } catch(e) {
       setError("Error creating book");
       setInterval(() => {
