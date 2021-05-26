@@ -11,6 +11,7 @@ import EditBook from "./EditBook";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
+import ListBooks from "./ListBooks";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
               <PrivateRoute path="/book/create" component={CreateBook} />
               <PrivateRoute path="/book/:id/edit" component={EditBook} />
+              <Route path="/book" component={ListBooks} />
               <Route path="/book/:id" component={DetailBook} />
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
