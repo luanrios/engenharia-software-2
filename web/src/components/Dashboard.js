@@ -34,6 +34,9 @@ export default function Dashboard() {
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Update Profile
           </Link>
+          <Link to="/book" className="btn btn-primary w-100 mt-3">
+            Show books
+          </Link>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
