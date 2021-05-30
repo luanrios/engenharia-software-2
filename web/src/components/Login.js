@@ -3,6 +3,11 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
+/*
+    Componente com método de login
+    Utiliza contexto de autenticação
+*/
+
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();

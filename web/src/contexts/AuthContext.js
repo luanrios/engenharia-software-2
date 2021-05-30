@@ -3,9 +3,18 @@ import { auth } from "../firebase";
 
 const AuthContext = React.createContext();
 
+/*
+    O método useAuth é utilizado para recuperar objetos do contexto de autenticação
+*/
+
 export function useAuth() {
   return useContext(AuthContext);
 }
+
+/*
+    Componente AuthProvider que dá aos filhos acesso ao contexto de autenticação
+    Funções do backend são providas pelo objeto auth importado de ../firebase
+*/
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();

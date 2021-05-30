@@ -3,6 +3,11 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
+/*
+    Componente para atualização de dados do usuário
+    Utiliza contexto de autenticação
+*/
+
 export default function UpdateProfile() {
   const emailRef = useRef();
   const passwordRef = useRef();

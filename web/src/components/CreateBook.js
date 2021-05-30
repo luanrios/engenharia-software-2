@@ -3,6 +3,11 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../firebase";
 
+/*
+    Componente com método de cadastro de novos livros
+    Importa conexão com o backend de ../firebase
+*/
+
 export default function CreateBook() {
   const titleRef = useRef();
   const authorRef = useRef();

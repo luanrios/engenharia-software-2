@@ -4,6 +4,11 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../firebase";
 
+/*
+    Componente de visualização detalhada de um livro
+    Importa conexão com o backend de ../firebase
+*/
+
 export default function DetailBook(props) {
   const { currentUser } = useAuth();
   
