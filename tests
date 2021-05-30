@@ -1,0 +1,127 @@
++ entrada do usuário
+- saída esperada
+* condição de execução
+(...). finaliza teste para condição mais próxima
+
+criação de usuário
++ usuário acessa rota '/'
+* usuário não está autenticado
+- sistema redireciona para componente Login
+- componente Login possui Link Sign Up
++ usuário clica em Sign Up
+- sistema carrega componente Signup
+- componente signup possui campos email, password e password confirmation
++ usuário informa email
++ usuário informa senha
++ usuário reinforma senha para confirmação
++ usuário clica em signup
+* email informado já está associado a uma conta cadastrada
+- sistema exibe aviso informando ao usuário que houve uma falha na criação da conta.
+* senhas informadas não coincidem
+- sistema exibe aviso informando que senhas não coincidem.
+* email não está no formato correto de um email
+- sistema informa ao usuário para preencher o campo email corretamente.
+* email está no formato correto e não associado a outra conta e senhas coincidem
+- sistema cria usuário
+- sistema autentica usuário criado
+- sistema redireciona para componente Dashboard.
+
+login
++ usuário acessa rota '/'
+* usuário não está autenticado
+- sistema redireciona para componente Login
+- componente Login possui inputs email e password
++ usuário informa email
++ usuário informa senha
++ usuário clica em botão Log In
+* dados informados não correspondem a um usuário cadastrado
+- sistema exibe aviso de falha.
+* dados informados correspondem a um usuário cadastrado
+- sistema autentica usuário
+- sistema redireciona usuário para componente Dashboard.
+
+logout
++ usuário acessa rota '/'
+* usuário está autenticado
+- sistema carrega componente Dashboard
++ usuário clica em link logout
+- sistema faz logout do usuário
+- sistema redireciona para componente Login.
+
+atualização de senha
++ usuário acessa rota '/'
+* usuário está autenticado
+- sistema carrega componente Dashboard
++ usuário clica em botão Update Profile
+- sistema carrega rota update-profile
+- sistema carrega componente UpdateProfile
+- componente UpdateProfile possui campos email, password e password confirmation
+- campo email contém email do usuário autenticado
++ usuário informa nova senha em campo password
++ usuário reinforma nova senha em campo password confirmation
++ usuário clica em botão  Update
+* senhas informadas são diferentes
+- sistema exibe aviso de falha indicando que as senhas não coincidem.
+* senhas informadas coincidem
+- sistema atualiza senha do usuário
+- sistema redireciona usuário para componente Dashboard.
+
+atualização de email
++ usuário acessa rota '/'
+* usuário está autenticado
+- sistema carrega componente Dashboard
++ usuário clica em botão Update Profile
+- sistema carrega rota update-profile
+- sistema carrega componente UpdateProfile
+- componente UpdateProfile possui campos email, password e password confirmation
+- campo email contém email do usuário autenticado
++ usuário informa novo email
++ usuário clica em botão Update
+* usuário não informou senha atual
+- sistema exibe aviso de que houve falha ao atualizar a conta
++ usuário informa senha
++ usuário clica em botão Update
+* senha está incorreta
+- sistema exibe aviso de que houve falha ao atualizar a conta.
+* senha está correta
+- sistema atualiza email do usuário
+- sistema redireciona usuário para componente Dashboard.
+
+recuperação de senha
++ usuário acessa rota '/forgot-password'
+- sistema exibe componente ForgotPassword
+- componente possui campo email
++ usuário preenche email
++ usuário clica em botão Reset Password
+- sistema avisa usuário para checar sua caixa de entrada para mais instruções
+* email informado não corresponde a nenhum usuário cadastrado
+- .
+* email informado corresponde a um usuário cadastrado
+- sistema envia email de recuperação de senha
++ usuário clica em link do email
++ usuário informa nova senha
+- sistema atualiza senha do usuário.
+
+criação de livro
++ usuário acessa rota '/book/create'
+* usuário não está autenticado
+- sistema redireciona usuário para componente Login.
+* usuário está autenticado
+- sistema carrega componente CreateBook
+- componente CreateBook possui campos title, author e barcode
++ usuário clica em Create
+* usuário não preencheu nenhum campo
+- sistema pede que usuário preencha campos obrigatórios
++ usuário preenche campo title
++ usuário clica em Create
+* usuário preencheu apenas campo title
+- sistema pede que usuário preencha campos obrigatórios
++ usuário preenche campo author
++ usuário clica em Create
+* usuário preencheu apenas campos title e author
+- sistema pede que usuário preencha campos obrigatórios
++ usuário preenche campo barcode
++ usuário clica em Create
+* usuário preencheu todos os campos obrigatórios (title, author e barcode)
+- sistema emite alerta de sucesso na criação do livro
+- sistema faz o cadastro do livro.
