@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
 import ListBooks from "./ListBooks";
+import TopNavbar from './TopNavbar';
 
 /*
     Componente App que roteia a aplicação utilizando lib react-router-dom
@@ -20,28 +21,32 @@ import ListBooks from "./ListBooks";
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Router>
-          <AuthProvider>
-            <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <PrivateRoute path="/book/create" component={CreateBook} />
-              <PrivateRoute path="/book/:id/edit" component={EditBook} />
-              <Route path="/book" component={ListBooks} />
-              <Route path="/book/:id" component={DetailBook} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-            </Switch>
-          </AuthProvider>
-        </Router>
-      </div>
-    </Container>
+    <>
+      <TopNavbar />
+
+      <Container
+        className="d-flex align-items-center justify-content-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <div className="w-100" style={{ maxWidth: "400px" }}>
+          <Router>
+            <AuthProvider>
+              <Switch>
+                <PrivateRoute exact path="/" component={Dashboard} />
+                <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                <PrivateRoute path="/book/create" component={CreateBook} />
+                <PrivateRoute path="/book/:id/edit" component={EditBook} />
+                <Route path="/book" component={ListBooks} />
+                <Route path="/book/:id" component={DetailBook} />
+                <Route path="/signup" component={Signup} />
+                <Route path="/login" component={Login} />
+                <Route path="/forgot-password" component={ForgotPassword} />
+              </Switch>
+            </AuthProvider>
+          </Router>
+        </div>
+      </Container>
+    </>
   );
 }
 
