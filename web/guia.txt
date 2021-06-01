@@ -1,0 +1,35 @@
+É recomendado que esse projeto seja instanciado a partir da sua imagem Docker.
+
+Lembrete: é preciso adicionar as variáveis de ambiente responsáveis pela conexão com o backend através do arquivo .env.local (disponível no trello na lista Informações úteis) na pasta 'web'.
+
+Todos os comandos a seguir podem ser executados na raiz da pasta 'web' do projeto após o .env.local ter sido copiado.
+
+* Para subir o projeto pela primeira vez:
+  $ make build  # Utiliza Dockerfile para criação da imagem do projeto com tag web/app
+  $ make run    # Sobe container webapp com código fonte da aplicação montado em volume
+
+* Para parar o projeto e limpar ambiente:
+  $ make clean  # Para e remove container webapp
+
+* Para subir o projeto novamente:
+  $ make run    # Sobe o container webapp a partir de imagem web/app
+
+* Para dar reboot no projeto:
+  $ make rerun  # Remove container webapp e cria um novo a partir da imagem web/app
+
+* Para verificar logs do servidor:
+  $ make status # Exibe logs do container webapp
+
+* Para verificar endereço onde projeto está disponível:
+  $ make where  # Procura em logs do container endereço de acesso ao projeto
+
+Após inicialização ou reinicialização do projeto, o mesmo estará disponível por padrão em:
+  - http://172.17.0.2:3000/
+
+Caso endereço não esteja disponível, é possível que a rede docker já tivesse ocupada e seja necessário verificar a rede de acesso com make where. A porta de acesso sempre será 3000.
+
+
+Restrições:
+make clean e make rerun só devem ser utilizados caso projeto esteja rodando.
+make run pressupõe ambiente limpo e só deve ser utilizado após make clean.
+make status e make where precisam que o projeto esteja inicializado.
