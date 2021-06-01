@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import createUser from "../utils/createuser";
 
 /*
     Componente para cadastro de usuário
@@ -27,7 +28,12 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+
+      const signupResponse = await signup(emailRef.current.value, passwordRef.current.value);
+
+      const uid = signupResponse.user.X.X;
+      await createUser(uid, emailRef.current.value);
+
       history.push("/");
     } catch (e) {
       setError("Failed to create an account");

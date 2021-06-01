@@ -36,7 +36,7 @@ export default function CreateBook() {
       setError("");
       setLoading(true);
 
-      booksCollection.add({
+      await booksCollection.add({
         title: titleRef.current.value,
         author: authorRef.current.value,
         barcode: barcodeRef.current.value,
