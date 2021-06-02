@@ -46,7 +46,7 @@ export default function CreateBook() {
         author: authorRef.current.value,
         barcode: barcodeRef.current.value,
         imgSrc: imgSrcRef.current.value,
-        owner: currentUser.email,
+        owner: currentUser.uid,
         borrowedBy: '',
         isAvailable: true,
       });
