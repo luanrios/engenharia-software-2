@@ -43,7 +43,7 @@ export default function DetailBook(props) {
           {book.description || 'No description available'}
         </p>
         <p className='text-center mb-4'>Author: {book.author}</p>
-        <p className='text-center mb-4'>Owner: {book.owner}</p>
+        <p className='text-center mb-4'>Owner: {book.ownerEmail}</p>
 
         {book.isAvailable && !book.borrowedBy ? (
           <Card.Body>
