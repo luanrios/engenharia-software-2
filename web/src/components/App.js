@@ -36,7 +36,7 @@ function App() {
                 <PrivateRoute path="/update-profile" component={UpdateProfile} />
                 <PrivateRoute path="/book/create" component={CreateBook} />
                 <PrivateRoute path="/book/:id/edit" component={EditBook} />
-                <Route path="/book" component={ListBooks} />
+                <Route path="/books" component={ListBooks} />
                 <Route path="/book/:id" component={DetailBook} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
