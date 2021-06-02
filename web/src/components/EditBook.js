@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
-import firebase from "../firebase";
+import React, { useRef, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { useAuth } from '../contexts/AuthContext';
+import firebase from '../firebase';
 
 /*
     Componente de edição de livros
@@ -11,40 +11,44 @@ import firebase from "../firebase";
 
 export default function CreateBook(props) {
   const titleRef = useRef();
+  const descriptionRef = useRef();
   const authorRef = useRef();
   const barcodeRef = useRef();
+  const imgSrcRef = useRef();
 
   const { currentUser } = useAuth();
-  
-  const [owner, setOwner] = useState("");
-  const [error, setError] = useState("");
+
+  const [owner, setOwner] = useState('');
+  const [error, setError] = useState('');
   const [doesBookExist, setDoesBookExist] = useState(true);
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
-  
+
   useEffect(() => {
     if (!doesBookExist) {
       history.push('/');
     }
-  }, [doesBookExist, history])
+  }, [doesBookExist, history]);
 
-  useEffect(() =>{
+  useEffect(() => {
     function fillFields(bookData) {
       titleRef.current.value = bookData.title;
+      descriptionRef.current.value = bookData.description;
       authorRef.current.value = bookData.author;
       barcodeRef.current.value = bookData.barcode;
+      imgSrcRef.current.value = bookData.imgSrc;
 
       setOwner(bookData.owner);
     }
 
     async function getBook(id) {
       const database = firebase.firestore();
-      const booksCollection = database.collection("books");
-      
+      const booksCollection = database.collection('books');
+
       const doc = await booksCollection.doc(id).get();
-      
+
       if (!doc.exists) {
         return setDoesBookExist(false);
       }
@@ -53,7 +57,7 @@ export default function CreateBook(props) {
 
       fillFields(bookData);
     }
-    
+
     let bookData = props.location.state ? props.location.state.book : undefined;
 
     if (!bookData) {
@@ -61,16 +65,16 @@ export default function CreateBook(props) {
     } else {
       fillFields(bookData);
     }
-  }, [props])
+  }, [props]);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
       const database = firebase.firestore();
-      const booksCollection = database.collection("books")
-  
-      setError("");
+      const booksCollection = database.collection('books');
+
+      setError('');
       setLoading(true);
 
       if (owner !== currentUser.email) {
@@ -79,19 +83,21 @@ export default function CreateBook(props) {
 
       await booksCollection.doc(props.match.params.id).update({
         title: titleRef.current.value,
+        description: descriptionRef.current.value,
         author: authorRef.current.value,
-        barcode: barcodeRef.current.value
+        barcode: barcodeRef.current.value,
+        imgSrc: imgSrcRef.current.value,
       });
 
-      setSuccess("Successfully updated!");
+      setSuccess('Successfully updated!');
       setInterval(() => {
-        setSuccess("");
-      }, 3000)
-    } catch(e) {
-      setError("Error updating book");
+        setSuccess('');
+      }, 3000);
+    } catch (e) {
+      setError('Error updating book');
       setInterval(() => {
-        setError("");
-      }, 3000)
+        setError('');
+      }, 3000);
     }
 
     setLoading(false);
@@ -101,23 +107,31 @@ export default function CreateBook(props) {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Update Book</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {success && <Alert variant="success">{success}</Alert>}
+          <h2 className='text-center mb-4'>Update Book</h2>
+          {error && <Alert variant='danger'>{error}</Alert>}
+          {success && <Alert variant='success'>{success}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="title">
+            <Form.Group id='title'>
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" ref={titleRef} required />
+              <Form.Control type='text' ref={titleRef} required />
             </Form.Group>
-            <Form.Group id="author">
+            <Form.Group id='description'>
+              <Form.Label>Description</Form.Label>
+              <Form.Control type='text' ref={descriptionRef} required />
+            </Form.Group>
+            <Form.Group id='author'>
               <Form.Label>Author</Form.Label>
-              <Form.Control type="text" ref={authorRef} required />
+              <Form.Control type='text' ref={authorRef} required />
             </Form.Group>
-            <Form.Group id="barcode">
+            <Form.Group id='barcode'>
               <Form.Label>Barcode</Form.Label>
-              <Form.Control type="text" ref={barcodeRef} required />
+              <Form.Control type='text' ref={barcodeRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Form.Group id='imgSrc'>
+              <Form.Label>Image Link</Form.Label>
+              <Form.Control type='text' ref={imgSrcRef} required />
+            </Form.Group>
+            <Button disabled={loading} className='w-100' type='submit'>
               Update
             </Button>
           </Form>
