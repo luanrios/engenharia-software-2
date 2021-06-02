@@ -5,7 +5,7 @@ import firebase from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import Library from './Library';
 
-export default function ListBooks() {
+export default function ListBorrowedBooks() {
   const { currentUser } = useAuth();
 
   return (
