@@ -1,39 +1,50 @@
 import React from 'react';
 import { Navbar, NavDropdown } from 'react-bootstrap';
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from '../contexts/AuthContext';
 
 import logo from '../assets/images/icon.png';
 import bookbook from '../assets/images/bookbook.png';
 
 export default function TopNavbar() {
-  // const { currentUser } = useAuth();
+  const { currentUser } = useAuth();
 
   return (
-    <Navbar bg="dark" variant="dark" className="justify-content-between">
-      <Navbar.Brand href="/">
+    <Navbar bg='dark' variant='dark' className='justify-content-around'>
+      <Navbar.Brand href='/'>
         <img
-          alt=""
+          alt=''
           src={logo}
-          width="40"
-          height="32"
-          className="d-inline-block align-top"
+          width='40'
+          height='32'
+          className='d-inline-block align-top'
         />{' '}
         <img
-          alt=""
+          alt=''
           src={bookbook}
-          width="139"
-          height="32"
-          className="d-inline-block align-top"
+          width='139'
+          height='32'
+          className='d-inline-block align-top'
         />{' '}
       </Navbar.Brand>
 
-      {/* TODO: GET DIS "RIGHT" ;) */}
-      <NavDropdown title="Dropdown" id="basic-nav-dropdown" className="dropdown-menu-right">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+      <NavDropdown title='Menu' id='basic-nav-dropdown'>
+        {currentUser ? (
+          <>
+            <NavDropdown.Item href='/'>Books</NavDropdown.Item>
+            <NavDropdown.Item href='/borrowed-books'>
+              Borrowed Books
+            </NavDropdown.Item>
+            <NavDropdown.Item href='/owned-books'>Owned Books</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href='/edit-profile'>Profile</NavDropdown.Item>
+          </>
+        ) : (
+          <>
+            <NavDropdown.Item href='/login'>Login</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href='/signup'>Sign Up</NavDropdown.Item>
+          </>
+        )}
       </NavDropdown>
     </Navbar>
   );
