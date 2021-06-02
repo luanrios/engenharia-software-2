@@ -152,7 +152,7 @@ export default function DetailBook(props) {
       return;
     }
 
-    if (book.owner !== currentUser.email) {
+    if (book.owner !== currentUser.uid) {
       setError("User doesn't own book");
       setInterval(() => {
         setError('');

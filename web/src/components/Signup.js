@@ -32,7 +32,8 @@ export default function Signup() {
       const signupResponse = await signup(emailRef.current.value, passwordRef.current.value);
 
       const uid = signupResponse.user.X.X;
-      await createUser(uid, emailRef.current.value);
+      const borrowedBooks = [];
+      await createUser(uid, emailRef.current.value, borrowedBooks);
 
       history.push("/");
     } catch (e) {
