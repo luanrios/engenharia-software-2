@@ -13,6 +13,7 @@ import ForgotPassword from './ForgotPassword';
 import UpdateProfile from './UpdateProfile';
 import ListBooks from './ListBooks';
 import ListBorrowedBooks from './ListBorrowedBooks';
+import ListOwnedBooks from './ListOwnedBooks';
 import TopNavbar from './TopNavbar';
 
 /*
@@ -23,15 +24,14 @@ import TopNavbar from './TopNavbar';
 function App() {
   return (
     <>
-      <TopNavbar />
-
-      <Container
-        className='d-flex align-items-center justify-content-center'
-        style={{ minHeight: '100vh' }}
-      >
-        <div className='w-100' style={{ maxWidth: '400px' }}>
-          <Router>
-            <AuthProvider>
+      <AuthProvider>
+        <TopNavbar />
+        <Container
+          className='d-flex align-items-center justify-content-center'
+          style={{ minHeight: '100vh' }}
+        >
+          <div className='w-100' style={{ maxWidth: '400px' }}>
+            <Router>
               <Switch>
                 <PrivateRoute exact path='/' component={ListBooks} />
                 <PrivateRoute
@@ -42,6 +42,7 @@ function App() {
                   path='/borrowed-books'
                   component={ListBorrowedBooks}
                 />
+                <PrivateRoute path='/owned-books' component={ListOwnedBooks} />
                 <PrivateRoute path='/book/create' component={CreateBook} />
                 <PrivateRoute path='/book/:id/edit' component={EditBook} />
                 <PrivateRoute path='/edit-profile' component={EditProfile} />
@@ -50,10 +51,10 @@ function App() {
                 <Route path='/login' component={Login} />
                 <Route path='/forgot-password' component={ForgotPassword} />
               </Switch>
-            </AuthProvider>
-          </Router>
-        </div>
-      </Container>
+            </Router>
+          </div>
+        </Container>
+      </AuthProvider>
     </>
   );
 }
