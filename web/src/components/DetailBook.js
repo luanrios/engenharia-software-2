@@ -65,7 +65,7 @@ export default function DetailBook(props) {
           <></>
         )}
 
-        {currentUser.email === book.owner ? (
+        {currentUser.uid === book.owner ? (
           <Card.Body>
             <Button className='w-100' onClick={handleEdit}>
               Edit
@@ -75,7 +75,7 @@ export default function DetailBook(props) {
           <></>
         )}
 
-        {currentUser.email === book.owner ? (
+        {currentUser.uid === book.owner ? (
           <Card.Body>
             <Button className='w-100' onClick={handleDelete}>
               Delete
