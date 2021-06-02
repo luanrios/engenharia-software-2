@@ -47,6 +47,7 @@ export default function CreateBook() {
         barcode: barcodeRef.current.value,
         imgSrc: imgSrcRef.current.value,
         owner: currentUser.uid,
+        ownerEmail: currentUser.email,
         borrowedBy: '',
         isAvailable: true,
       });
