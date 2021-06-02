@@ -34,7 +34,7 @@ export default function EditProfile() {
           <Link to='/update-profile' className='btn btn-primary w-100 mt-3'>
             Update Profile
           </Link>
-          <Link to='/book' className='btn btn-primary w-100 mt-3'>
+          <Link to='/owned-books' className='btn btn-primary w-100 mt-3'>
             Show books
           </Link>
         </Card.Body>
