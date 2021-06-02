@@ -1,45 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardDeck, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-// import { Container } from './styles';
+import firebase from '../firebase';
 
-function Library() {
-  const exampleBooks = [
-    {
-      imgSrc: 'https://m.media-amazon.com/images/I/51P8CCNS4kL.jpg',
-      title: 'Clube da Luta',
-      owner: 'tom@zera.com',
-      isAvailable: true
-    },
-    {
-      imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/917IJDfk36L.jpg',
-      title: 'Boa noite dá pum',
-      owner: 'pedro@filo.com',
-      isAvailable: true
-    },
-    {
-      imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/71OoF53v78L.jpg',
-      title: 'Eldest',
-      owner: 'dud@inha.com',
-      isAvailable: false
-    },
-  ];
+function Library(props) {
+  const [books, setBooks] = useState([]);
+
+  const filterBook = props.filterBook
+    ? props.filterBook
+    : _ => {
+        return true;
+      };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const database = firebase.firestore();
+      const booksCollection = database.collection('books');
+
+      const data = await booksCollection.get();
+
+      setBooks(
+        data.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          };
+        }),
+      );
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <CardDeck>
-        {exampleBooks.map((book, index) => (
-          book.isAvailable ?
-            <Card key={index}>
-              <Card.Img variant="top" src={book.imgSrc} />
+        {books.map((book, index) =>
+          filterBook(book) ? (
+            <Card key={index} style={{ marginBottom: '2rem' }}>
+              <Card.Img variant='top' src={book.imgSrc} />
               <Card.Body>
                 <Card.Title>{book.title}</Card.Title>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">Entre em contato com <a href="mailto">{book.owner}</a></small>
+                <Link
+                  to={`/book/${book.id}`}
+                  className='btn btn-primary w-100 mt-3 mb-3'
+                >
+                  See More...
+                </Link>
               </Card.Footer>
-            </Card> :
+            </Card>
+          ) : (
             <></>
-        ))}
+          ),
+        )}
       </CardDeck>
     </>
   );

@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
-import firebase from "../firebase";
-import { useAuth } from "../contexts/AuthContext";
-import Library from "./Library";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Table } from 'react-bootstrap';
+import firebase from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
+import Library from './Library';
 
 export default function ListBooks() {
-
   const { currentUser, logout } = useAuth();
   const [books, setBooks] = React.useState([]);
   // const [loading, setLoading] = useState(false);
@@ -28,14 +27,18 @@ export default function ListBooks() {
   return (
     <>
       {/* <ul> */}
-        <Link to="/book/create" className="btn btn-primary w-100 mt-3 mb-3">
-          Create New Book
-        </Link>
+      <Link to='/book/create' className='btn btn-primary w-100 mt-3 mb-3'>
+        Create New Book
+      </Link>
 
-        <br />
+      <br />
 
-        <Library />
-        {/* <Table striped bordered hover>
+      <Library
+        filterBook={book => {
+          return book.isAvailable && !book.borrowedBy;
+        }}
+      />
+      {/* <Table striped bordered hover>
           <thead>
             <tr>
               <th>Book</th>
