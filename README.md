@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="dev maps" title="Graphic design is my passion" src=".github/logo.png" width="250px" />
+    <img alt="BookBook" title="Graphic design is my passion" src=".github/logo.png" width="250px" />
 </h1>
 
 <p align="center">
@@ -60,6 +60,7 @@ After your pull request has been merged, you can delete your branch.
 ## 📚 Project structure
 
 web `Web application`
+
 - package.json `Contains high-level project specifications, like dependencies and such`
 - yarn.lock `Contains low-level specification of the project dependency tree`
 - .env.local `Contains environment variables used to open a connection to the project's backend`
